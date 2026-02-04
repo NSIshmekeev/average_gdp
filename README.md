@@ -30,11 +30,27 @@ pytest
 ## Дополнительные возможности
 В коде предусмотрена возоможность добавлять свои отчеты. 
 Например:
-в файле src/main.py добавим в словарь 
+
+Для начала в файле src/main.py добавим в словарь название и класс отвечающий логике отчёта
 ```python
 REPORTS = {
     'average-gdp': AverageGpd(),
     'new-report': NewReport(),
 }
 ```
+далее создаем dataclass по аналогии с AverageGdp
+```python
+@dataclass(frozen=True)
+class NewReport:
+    name: str = 'new-report'
 
+    def generate_report(
+            self, rows: Iterable[Row]
+    ) -> tuple[list[str], list[list[object]]]:
+        ...
+        return headers, table
+```
+Теперь через строку мы можем запусить скрипт с новым отчетом
+```bash
+python src/main.py --files data/economic1.csv data/economic2.csv --report new-report
+```
