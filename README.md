@@ -22,7 +22,19 @@ python src/main.py --files data/economic1.csv data/economic2.csv --report averag
 ```
 
 ## Запуск тестов
+Для запуска тестов достаточно в папке с проектом выполнить команду:
 ```bash
 pytest
+```
+
+## Дополнительные возможности
+В коде предусмотрена возоможность добавлять свои отчеты. 
+Например:
+в файле src/main.py добавим в словарь 
+```python
+REPORTS = {
+    'average-gdp': AverageGpd(),
+    'new-report': NewReport(),
+}
 ```
 
